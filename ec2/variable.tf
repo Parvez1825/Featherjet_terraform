@@ -13,3 +13,7 @@ variable "root_volume_size" {
 variable "additional_volume_size" {
   type = number
 }
+
+variable "tf_state_bucket_name" {
+  type = string
+}
