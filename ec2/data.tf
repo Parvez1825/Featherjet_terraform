@@ -13,5 +13,5 @@ data "terraform_remote_state" "sg" {
     key    = "sg/ec2/sg.tfstate"
     region = "us-east-1"
   }
-
+  
 }
