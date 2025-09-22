@@ -154,14 +154,5 @@ jobs:
         if: ${{ github.ref == 'refs/heads/main' && steps.changes.outputs.sg == 'true' }}
         working-directory: ./ec2
         run: terraform apply -input=false -var-file=terraform.tfvars -auto-approve
-# Commit PEM file after apply
-      - name: Commit PEM file
-        if: ${{ steps.action.outputs.action == 'apply' }}
-        working-directory: ./ec2
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add keys/*.pem
-          git commit -m "Add generated PEM file" || echo "No changes to commit"
-          git push origin main
+
         
