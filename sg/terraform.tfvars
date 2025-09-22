@@ -8,7 +8,7 @@ rules = [
   {
     port        = 22
     proto       = "tcp"
-    cidr_blocks = ["49.43.225.115/32"]
+    cidr_blocks = ["203.197.238.210/32"]
     description = "ssh connect from my IP only"
   }
 
