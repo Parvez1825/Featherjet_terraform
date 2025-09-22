@@ -149,4 +149,4 @@ jobs:
       - name: Terraform Apply
         if: ${{ github.ref == 'refs/heads/main' && steps.changes.outputs.sg == 'true' }}
         working-directory: ./sg
-        run: terraform apply -input=false -var-file=terraform.tfvars -auto-approved
+        run: terraform apply -input=false -var-file=terraform.tfvars -auto-approve
