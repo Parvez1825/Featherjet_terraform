@@ -151,7 +151,7 @@ jobs:
         working-directory: ./ec2
         run: terraform plan -input=false -var-file=terraform.tfvars
       - name: Terraform Apply
-        if: ${{ github.ref == 'refs/heads/main' && steps.changes.outputs.sg == 'true' }}
+        if: ${{ github.ref == 'refs/heads/main' && steps.changes.outputs.ec2 == 'true' }}
         working-directory: ./ec2
         run: terraform apply -input=false -var-file=terraform.tfvars -auto-approve
 
