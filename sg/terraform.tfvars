@@ -11,7 +11,6 @@ rules = [
     cidr_blocks = ["203.197.238.210/32"]
     description = "ssh connect from my IP"
   }
-
 ]
 
 
