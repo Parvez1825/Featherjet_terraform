@@ -13,7 +13,6 @@ environment = "dev"
 resource_tags = {
   application = "Featherjet"
   env = "dev"
-
 }
 
 
