@@ -56,3 +56,13 @@ variable "environment_tag" {
   }
 }
 
+variable "peer_vpc_id" {
+  type        = string
+  description = "ID of the peer VPC (example: default VPC)"
+}
+
+variable "peer_route_table_id" {
+  type        = string
+  description = "Route table ID of the peer VPC where return route will be added"
+}
+
