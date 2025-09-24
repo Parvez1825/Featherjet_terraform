@@ -19,10 +19,9 @@ resource "aws_instance" "ec2_instance" {
   iam_instance_profile = aws_iam_instance_profile.profile.name
   # Root volume
 
-  ebs_block_device {
-    device_name = "/dev/xvda"
+  root_block_device {
     volume_type = "gp3"
-    volume_size = var.root_volume_size
+    volume_size = var.root_volume_size 
   }
   ## Additional volume
 
@@ -33,7 +32,7 @@ resource "aws_instance" "ec2_instance" {
   }
   
   tags = {
-    Name = "application-ec2"
+    Name = "FeatherJet"
   }
 
 }
