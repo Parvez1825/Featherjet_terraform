@@ -91,4 +91,39 @@ resource "aws_internet_gateway" "gw" {
 #   route_table_id = aws_route_table.private.id
 # }
 
+##############################
+# VPC Peering
 
+data "aws_vpc" "peer_vpc" {
+  id = var.peer_vpc_id
+}
+
+# Create VPC Peering Connection
+resource "aws_vpc_peering_connection" "peer" {
+  vpc_id      = aws_vpc.vpc.id
+  peer_vpc_id = data.aws_vpc.peer_vpc.id
+  auto_accept = true
+
+  tags = merge(
+    tomap({
+      Name = "peering-${var.environment}"
+    }),
+    var.resource_tags
+  )
+}
+
+##############################
+# Route Updates for Peering
+
+
+resource "aws_route" "to_peer_from_public" {
+  route_table_id            = aws_route_table.public.id
+  destination_cidr_block    = data.aws_vpc.peer_vpc.cidr_block
+  vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
+}
+
+resource "aws_route" "from_peer_to_new" {
+  route_table_id            = var.peer_route_table_id
+  destination_cidr_block    = aws_vpc.vpc.cidr_block
+  vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
+}
