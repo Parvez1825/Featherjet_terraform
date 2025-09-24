@@ -1,6 +1,6 @@
 
 resource "aws_iam_instance_profile" "profile" {
-  name = "session-manager-profile"
+  name = "featherjet-profile"
   role = aws_iam_role.session-role.name
 }
 
