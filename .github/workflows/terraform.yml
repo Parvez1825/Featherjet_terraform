@@ -127,3 +127,42 @@ jobs:
         if: ${{ github.ref == 'refs/heads/main' && steps.changes.outputs.ec2 == 'true' }}
         working-directory: ./ec2
         run: terraform apply -input=false -var-file=terraform.tfvars -auto-approve
+
+  route53:
+    runs-on: [terraform]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: changes changes
+        id: changes
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            route53:
+              - 'route53/**'
+
+      - name: Terraform Init
+        if: ${{ steps.changes.outputs.route53 == 'true' }}
+        working-directory: ./route53
+        run: terraform init
+
+      - name: Terraform Format
+        if: ${{ steps.changes.outputs.route53 == 'true' }}
+        working-directory: ./route53
+        run: terraform fmt -recursive
+
+      - name: Terraform Validate
+        if: ${{ steps.changes.outputs.route53 == 'true' }}
+        working-directory: ./route53
+        run: terraform validate
+
+      - name: Terraform Plan
+        if: ${{ steps.changes.outputs.route53 == 'true' }}
+        working-directory: ./route53
+        run: terraform plan -input=false -var-file=terraform.tfvars
+
+      - name: Terraform Apply
+        if: ${{ github.ref == 'refs/heads/main' && steps.changes.outputs.route53 == 'true' }}
+        working-directory: ./route53
+        run: terraform apply -input=false -var-file=terraform.tfvars -auto-approve
