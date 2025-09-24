@@ -41,7 +41,6 @@ resource "aws_route_table_association" "a" {
 
 }
 
-
 resource "aws_internet_gateway" "gw" {
   vpc_id = aws_vpc.vpc.id
 
