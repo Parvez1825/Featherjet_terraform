@@ -12,12 +12,12 @@ permissions:
 
 jobs:
   vpc:
-    runs-on: [terraform]
+    runs-on: [terraform] # self-hosted runner with terraform label
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: changes changes
+      - name: Detect changes
         id: changes
         uses: dorny/paths-filter@v3
         with:
@@ -56,7 +56,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: changes changes
+      - name: Detect changes
         id: changes
         uses: dorny/paths-filter@v3
         with:
@@ -95,7 +95,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: changes changes
+      - name: Detect changes
         id: changes
         uses: dorny/paths-filter@v3
         with:
