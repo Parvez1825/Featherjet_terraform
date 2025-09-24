@@ -24,9 +24,9 @@ variable "availability_zone" {
 variable "subnet_id_public" {
   type = list(string)
 }
-variable "subnet_id_private" {
-  type = list(string)
-}
+# variable "subnet_id_private" {
+#   type = list(string)
+# }
 
 variable "resource_tags" {
   type = map(string)

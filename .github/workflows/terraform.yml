@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   vpc:
-    runs-on: ubuntu-latest
+    runs-on: [terraform]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -25,31 +25,21 @@ jobs:
             vpc:
               - 'vpc/**'
 
-      - name: Configure AWS credentials
-        if: ${{ steps.changes.outputs.vpc == 'true' }}
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: ${{ secrets.AWS_OIDC_ROLE }}
-          aws-region: us-east-1
-
-      - name: Setup Terraform
-        if: ${{ steps.changes.outputs.vpc == 'true' }}
-        uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: 1.9.8
-
       - name: Terraform Init
         if: ${{ steps.changes.outputs.vpc == 'true' }}
         working-directory: ./vpc
         run: terraform init
+
       - name: Terraform Format
         if: ${{ steps.changes.outputs.vpc == 'true' }}
         working-directory: ./vpc
         run: terraform fmt -recursive
+
       - name: Terraform Validate
         if: ${{ steps.changes.outputs.vpc == 'true' }}
         working-directory: ./vpc
         run: terraform validate
+
       - name: Terraform Plan
         if: ${{ steps.changes.outputs.vpc == 'true' }}
         working-directory: ./vpc
@@ -61,7 +51,7 @@ jobs:
         run: terraform apply -input=false -var-file=terraform.tfvars -auto-approve
 
   sg:
-    runs-on: ubuntu-latest
+    runs-on: [terraform]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -74,41 +64,33 @@ jobs:
             sg:
               - 'sg/**'
 
-      - name: Configure AWS credentials
-        if: ${{ steps.changes.outputs.sg == 'true' }}
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: ${{ secrets.AWS_OIDC_ROLE }}
-          aws-region: us-east-1
-
-      - name: Setup Terraform
-        if: ${{ steps.changes.outputs.sg == 'true' }}
-        uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: 1.9.8
-
       - name: Terraform Init
         if: ${{ steps.changes.outputs.sg == 'true' }}
         working-directory: ./sg
         run: terraform init
+
       - name: Terraform Format
         if: ${{ steps.changes.outputs.sg == 'true' }}
         working-directory: ./sg
         run: terraform fmt -recursive
+
       - name: Terraform Validate
         if: ${{ steps.changes.outputs.sg == 'true' }}
         working-directory: ./sg
         run: terraform validate
+
       - name: Terraform Plan
         if: ${{ steps.changes.outputs.sg == 'true' }}
         working-directory: ./sg
         run: terraform plan -input=false -var-file=terraform.tfvars
+
       - name: Terraform Apply
         if: ${{ github.ref == 'refs/heads/main' && steps.changes.outputs.sg == 'true' }}
         working-directory: ./sg
         run: terraform apply -input=false -var-file=terraform.tfvars -auto-approve
+
   ec2:
-    runs-on: ubuntu-latest
+    runs-on: [terraform]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -121,38 +103,27 @@ jobs:
             ec2:
               - 'ec2/**'
 
-      - name: Configure AWS credentials
-        if: ${{ steps.changes.outputs.ec2 == 'true' }}
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: ${{ secrets.AWS_OIDC_ROLE }}
-          aws-region: us-east-1
-
-      - name: Setup Terraform
-        if: ${{ steps.changes.outputs.ec2 == 'true' }}
-        uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: 1.9.8
-
       - name: Terraform Init
         if: ${{ steps.changes.outputs.ec2 == 'true' }}
         working-directory: ./ec2
         run: terraform init
+
       - name: Terraform Format
         if: ${{ steps.changes.outputs.ec2 == 'true' }}
         working-directory: ./ec2
         run: terraform fmt -recursive
+
       - name: Terraform Validate
         if: ${{ steps.changes.outputs.ec2 == 'true' }}
         working-directory: ./ec2
         run: terraform validate
+
       - name: Terraform Plan
         if: ${{ steps.changes.outputs.ec2 == 'true' }}
         working-directory: ./ec2
         run: terraform plan -input=false -var-file=terraform.tfvars
+
       - name: Terraform Apply
         if: ${{ github.ref == 'refs/heads/main' && steps.changes.outputs.ec2 == 'true' }}
         working-directory: ./ec2
         run: terraform apply -input=false -var-file=terraform.tfvars -auto-approve
-
-        
