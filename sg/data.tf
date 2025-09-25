@@ -5,4 +5,5 @@ data "terraform_remote_state" "network" {
     key    = "vpc/vpc.tfstate"
     region = "us-east-1"
   }
+  
 }
