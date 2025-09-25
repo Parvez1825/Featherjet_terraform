@@ -17,6 +17,7 @@ resource "aws_instance" "ec2_instance" {
   subnet_id              = data.terraform_remote_state.network.outputs.subnet_ids[0]
   vpc_security_group_ids = [data.terraform_remote_state.sg.outputs.sg-id]
   iam_instance_profile = aws_iam_instance_profile.profile.name
+  
   # Root volume
 
   root_block_device {
@@ -35,6 +36,7 @@ resource "aws_instance" "ec2_instance" {
     Name = "FeatherJet"
     env = "dev"
   }
+  
 }
 
 

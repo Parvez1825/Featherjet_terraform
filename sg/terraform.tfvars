@@ -5,6 +5,7 @@ rules = [
     cidr_blocks = ["0.0.0.0/0", "10.0.0.0/16"]
     description = "Application port"
   },
+  
   {
     port        = 22
     proto       = "tcp"
@@ -16,7 +17,7 @@ rules = [
     port        = 22
     proto       = "tcp"
     cidr_blocks = ["172.31.8.2/32"]
-    description = "Deploy server"
+    description = "Deploy"
   }
 ]
 
