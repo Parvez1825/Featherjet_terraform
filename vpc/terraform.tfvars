@@ -14,5 +14,6 @@ resource_tags = {
   application = "Featherjet"
   env = "dev"
 }
+
 peer_vpc_id        = "vpc-6ea66117"   
 peer_route_table_id = "rtb-2deb5255"

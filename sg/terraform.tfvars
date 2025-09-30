@@ -18,6 +18,7 @@ rules = [
     proto       = "tcp"
     cidr_blocks = ["172.31.8.2/32"]
     description = "Deploy"
+    
   }
 ]
 
