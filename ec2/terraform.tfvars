@@ -1,6 +1,5 @@
 instance_type      = "t3.micro"
 key_name = "featherjet"
 root_volume_size = "30"
-
 additional_volume_size = "20"
 tf_state_bucket_name = "devops-terraform-12345"
